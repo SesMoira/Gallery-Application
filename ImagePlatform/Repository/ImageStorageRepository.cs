@@ -12,22 +12,22 @@ namespace ImagePlatform.Repository
         public string ReadImageFromBlob(string filename)
         {
             string connectionstring = "";
-            string container = "";
+            string container = "ImagePlatform";
 
             BlobContainerClient blobContainerClient = new BlobContainerClient(connectionstring, container);
             var blob = blobContainerClient.GetBlobClient(filename);
 
-            string filePath = "";
+            string filePath = @$"C:\Users\izwelethu\Desktop\Project2\ImagePlatform\ImagePlatform\wwwroot\Images\Temp\{filename}";
 
             blob.DownloadTo(filePath);
 
             return filePath;
         }
 
-        public string WriteImageToBlob(string filePath, string name)
+        public string WriteImageToBlob(string filePath, string filename)
         {
             string connectionstring = "";
-            string container = "";
+            string container = "ImagePlatform";
 
             BlobContainerClient blobContainerClient = new BlobContainerClient(connectionstring, container);
 
@@ -35,7 +35,7 @@ namespace ImagePlatform.Repository
             StreamReader Sr = new StreamReader(filePath);
 
 
-            blobContainerClient.UploadBlob(name, Sr.BaseStream);
+            blobContainerClient.UploadBlob(filename, Sr.BaseStream);
 
             return blobContainerClient.Uri.ToString();
         }

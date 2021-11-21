@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ImagePlatform.Data;
 using ImagePlatform.Models;
+using ImagePlatform.ImageUpload;
 
 namespace ImagePlatform.Controllers
 {
@@ -43,6 +44,7 @@ namespace ImagePlatform.Controllers
             return View(imageData);
         }
 
+
         // GET: ImageDatas/Create
         public IActionResult Create()
         {
@@ -58,9 +60,48 @@ namespace ImagePlatform.Controllers
         {
             if (ModelState.IsValid)
             {
-                ImageData file = 
+                imageData.ImageId = new int();
                 _context.Add(imageData);
                 await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(imageData);
+        }
+
+        public IActionResult Upload()
+        {
+            var model = new ImageData();
+            return View(model);
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Capture([Bind("ImageId,ImageTitle,CapturedBy,CapturedDate,Geolocation,ImageUrl,ImageDescription,ImageTags")] ImageData imageData)
+        {
+            string path = "";
+            if (ModelState.IsValid)
+            {
+                ImageData ImageDataModel = new ImageData()
+                {
+                    ImageId = imageData.ImageId,
+                    ImageUrl = imageData.ImageUrl,
+                    ImageTitle = imageData.ImageTitle,
+                    CapturedBy = imageData.CapturedBy,
+                    CapturedDate = imageData.CapturedDate,
+                    Geolocation = imageData.Geolocation,
+                    ImageDescription = imageData.ImageDescription,
+                    ImageTags = imageData.ImageTags
+                };
+
+                Metadata MetadataModel = new Metadata()
+                {
+                };
+                ImageLogic imageLogic = new ImageLogic();
+
+                var results = imageLogic.UploadImage(ImageDataModel, MetadataModel, path);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(imageData);

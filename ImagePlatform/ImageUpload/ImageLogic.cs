@@ -9,18 +9,27 @@ namespace ImagePlatform.ImageUpload
 {
     public class ImageLogic
     {
-        public bool UploadImage(ImageData ImageDataModel)
+        public async Task<bool> UploadImage(ImageData ImageModel, Metadata MetadataModel, string filepath)
         {
+            ImageStorageRepository imageStorageRepository = new ImageStorageRepository();
+            ImageRepository imageRepository = new ImageRepository();
+
             try
             {
-                ImageStorageRepository.writeImageToBlob
+                var filepathSplit = filepath.Split("\\");
+                //string filename = new filepathSplit[filepathSplit.Length - 1];
+
+                //string blobURL = ImageStorageRepository.WriteImageToBlob(filepath,filename);
+
+                //bool result = await ImageRepository.CreateImageAsync(ImageModel);
+                //return bool result;
 
             }
-            else(Exception)
+            catch (Exception)
             {
                 return false;
             }
-            
+            return false;
         }
     }
 }

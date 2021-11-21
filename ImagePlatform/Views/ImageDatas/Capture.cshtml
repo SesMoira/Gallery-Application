@@ -1,0 +1,72 @@
+﻿@model ImagePlatform.Models.ImageDataView
+
+@{
+    ViewData["Title"] = "Capture";
+}
+
+<h1>Capture</h1>
+
+<h4>ImageData</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="file" name="file"/>
+
+            <div class="form-group">
+                <label asp-for="ImageId" class="control-label"></label>
+                <input asp-for="ImageId" class="form-control" />
+                <span asp-validation-for="ImageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageTitle" class="control-label"></label>
+                <input asp-for="ImageTitle" class="form-control" />
+                <span asp-validation-for="ImageTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CapturedBy" class="control-label"></label>
+                <input asp-for="CapturedBy" class="form-control" />
+                <span asp-validation-for="CapturedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CapturedDate" class="control-label"></label>
+                <input asp-for="CapturedDate" class="form-control" />
+                <span asp-validation-for="CapturedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Geolocation" class="control-label"></label>
+                <input asp-for="Geolocation" class="form-control" />
+                <span asp-validation-for="Geolocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageDescription" class="control-label"></label>
+                <input asp-for="ImageDescription" class="form-control" />
+                <span asp-validation-for="ImageDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageTags" class="control-label"></label>
+                <input asp-for="ImageTags" class="form-control" />
+                <span asp-validation-for="ImageTags" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
